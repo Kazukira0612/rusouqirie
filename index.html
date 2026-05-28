@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>rusouqirie — Exclusive Wedding Planner</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+</head>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --pink: #f472b6;
+      --pink-dark: #ec4899;
+      --pink-light: #fbcfe8;
+      --white: #ffffff;
+      --black: #0a0a0a;
+      --gray-200: #e5e7eb;
+      --gray-400: #9ca3af;
+      --gray-500: #6b7280;
+      --gray-600: #4b5563;
+      --gray-800: #1f2937;
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-body: 'Jost', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--white);
+      color: var(--gray-800);
+      font-family: var(--font-body);
+      overflow-x: hidden;
+    }
+
+    /* ── HERO ── */
+    #hero {
+      position: relative;
+      height: 100vh;
+      background: url('images/wedding2.jpg') center/cover no-repeat;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 1.5rem;
+    }
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,.6);
+    }
+    #hero > * { position: relative; z-index: 2; }
+
+    .hero-eyebrow {
+      letter-spacing: .5rem;
+      text-transform: uppercase;
+      color: var(--pink-light);
+      font-size: .8rem;
+      font-weight: 400;
+      margin-bottom: 1rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp .8s ease forwards;
+    }
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(3.5rem, 10vw, 7rem);
+      font-weight: 700;
+      color: var(--white);
+      text-shadow: 0 4px 40px rgba(0,0,0,.5);
+      line-height: 1.05;
+      letter-spacing: .05em;
+      opacity: 0;
+      filter: blur(12px);
+      transform: translateY(80px) scale(.9);
+      animation: heroReveal 1.1s ease forwards .2s;
+    }
+    .hero-sub {
+      margin-top: 1.5rem;
+      font-size: clamp(1rem, 2.5vw, 1.4rem);
+      color: var(--gray-200);
+      max-width: 700px;
+      line-height: 1.7;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeUp 1.2s ease forwards .4s;
+    }
+    .hero-btns {
+      margin-top: 2.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp .9s ease forwards .7s;
+    }
+    .btn-primary {
+      background: var(--pink-dark);
+      color: var(--white);
+      padding: .9rem 2.2rem;
+      border-radius: 9999px;
+      font-weight: 600;
+      font-size: 1rem;
+      text-decoration: none;
+      box-shadow: 0 8px 32px rgba(236,72,153,.45);
+      transition: background .25s, transform .2s, box-shadow .25s;
+    }
+    .btn-primary:hover { background: #db2777; transform: translateY(-2px); box-shadow: 0 12px 40px rgba(236,72,153,.55); }
+    .btn-outline {
+      border: 1.5px solid rgba(255,255,255,.7);
+      color: var(--white);
+      padding: .9rem 2.2rem;
+      border-radius: 9999px;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: background .25s, color .25s, transform .2s;
+    }
+    .btn-outline:hover { background: var(--white); color: var(--black); transform: translateY(-2px); }
+
+    /* ── ABOUT ── */
+    #about {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 6rem 1.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3.5rem;
+      align-items: center;
+    }
+    .about-img {
+      border-radius: 2rem;
+      box-shadow: 0 25px 60px rgba(0,0,0,.15);
+      object-fit: cover;
+      height: 600px;
+      width: 100%;
+    }
+    .section-eyebrow {
+      text-transform: uppercase;
+      letter-spacing: .35rem;
+      color: var(--pink-dark);
+      font-size: .75rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 4vw, 3.2rem);
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 2rem;
+    }
+    .section-title span { color: var(--pink-dark); }
+    .about-body p {
+      color: var(--gray-600);
+      font-size: 1.05rem;
+      line-height: 1.75;
+      margin-bottom: 1.25rem;
+    }
+    .about-body p:last-child { color: var(--gray-800); font-weight: 600; margin-bottom: 0; }
+
+    /* ── SERVICES ── */
+    #services {
+      background: linear-gradient(to bottom, #fff1f2, #fff);
+      padding: 6rem 1.5rem;
+    }
+    #services .inner { max-width: 1200px; margin: 0 auto; text-align: center; }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 4rem;
+    }
+    .service-card {
+      background: var(--white);
+      border-radius: 2rem;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,.08);
+      transition: transform .3s ease, box-shadow .3s ease;
+      text-align: left;
+    }
+    .service-card:hover { transform: translateY(-10px); box-shadow: 0 24px 60px rgba(0,0,0,.14); }
+    .service-card img { height: 260px; width: 100%; object-fit: cover; display: block; transition: transform .5s ease; }
+    .service-card:hover img { transform: scale(1.04); }
+    .service-body { padding: 2rem; }
+    .service-body h3 { font-family: var(--font-display); font-size: 1.6rem; font-weight: 700; margin-bottom: .75rem; }
+    .service-body p { color: var(--gray-500); line-height: 1.7; }
+
+    /* ── GALLERY SLIDER ── */
+    #gallery-section {
+      background: var(--black);
+      padding: 6rem 0;
+      overflow: hidden;
+    }
+    #gallery-section .gal-header { text-align: center; padding: 0 1.5rem; margin-bottom: 4rem; }
+    #gallery-section .section-eyebrow { color: #f9a8d4; }
+    #gallery-section .section-title { color: var(--white); }
+
+    .slider-track-wrap { overflow: hidden; width: 100%; }
+    .slider-track {
+      display: flex;
+      gap: 2rem;
+      padding: 0 1.5rem;
+      width: max-content;
+      animation: marquee 35s linear infinite;
+    }
+    .slider-track:hover { animation-play-state: paused; }
+    .gal-card {
+      position: relative;
+      min-width: 320px;
+      height: 480px;
+      border-radius: 2rem;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.08);
+      box-shadow: 0 16px 40px rgba(0,0,0,.5);
+      transition: transform .3s ease;
+      flex-shrink: 0;
+    }
+    .gal-card:hover { transform: scale(1.03) translateY(-8px); }
+    .gal-card img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s ease; }
+    .gal-card:hover img { transform: scale(1.1); }
+    .gal-card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,.82) 0%, rgba(0,0,0,.18) 50%, transparent 100%);
+    }
+    .gal-card-text {
+      position: absolute;
+      bottom: 0; left: 0;
+      padding: 2rem;
+      color: var(--white);
+    }
+    .gal-card-text h3 { font-family: var(--font-display); font-size: 1.6rem; font-weight: 700; margin-bottom: .5rem; }
+    .gal-card-text p { color: rgba(255,255,255,.75); font-size: .9rem; line-height: 1.6; max-width: 280px; }
+
+    /* ── CTA ── */
+    #cta {
+      position: relative;
+      padding: 7rem 1.5rem;
+      overflow: hidden;
+      text-align: center;
+    }
+    #cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('images/wedding3.jpg') center/cover no-repeat;
+    }
+    #cta::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,.72);
+    }
+    #cta .inner { position: relative; z-index: 2; max-width: 900px; margin: 0 auto; color: var(--white); }
+    #cta .section-eyebrow { color: #fbb6ce; }
+    #cta .section-title { color: var(--white); font-size: clamp(2.2rem, 5vw, 3.8rem); margin-bottom: 1.5rem; }
+    #cta p { font-size: 1.1rem; color: rgba(255,255,255,.8); line-height: 1.8; margin-bottom: 2.5rem; max-width: 680px; margin-left: auto; margin-right: auto; }
+    .cta-actions { display: flex; flex-wrap: wrap; gap: 1.5rem; justify-content: center; align-items: center; }
+    .cta-actions .btn-primary { font-size: 1.1rem; padding: 1.1rem 2.8rem; }
+    .cta-tags { color: rgba(255,255,255,.6); font-size: 1rem; letter-spacing: .04em; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--black);
+      color: var(--gray-400);
+      padding: 3rem 1.5rem;
+      text-align: center;
+    }
+    footer h3 { font-family: var(--font-display); font-size: 2rem; font-weight: 700; color: var(--white); margin-bottom: 1rem; }
+    footer p { max-width: 520px; margin: 0 auto; line-height: 1.7; }
+    footer .contact { margin-top: 1.5rem; font-size: 1.1rem; font-weight: 600; color: var(--pink); }
+    footer .copyright { margin-top: 2rem; font-size: .82rem; color: #6b7280; }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(50px);
+      transition: opacity .9s ease, transform .9s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ── KEYFRAMES ── */
+    @keyframes fadeUp {
+      to { opacity: 1; transform: none; }
+    }
+    @keyframes heroReveal {
+      to { opacity: 1; filter: blur(0); transform: none; }
+    }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      #about { grid-template-columns: 1fr; }
+      .about-img { height: 380px; }
+      .services-grid { grid-template-columns: 1fr; }
+      .service-card img { height: 220px; }
+    }
+    @media (max-width: 600px) {
+      .hero-btns { flex-direction: column; align-items: center; }
+      .cta-actions { flex-direction: column; }
+    }
+</style>
+<body>
+
+  <!-- HERO -->
+  <section id="hero">
+    <p class="hero-eyebrow">Exclusive Wedding Planner</p>
+    <h1 class="hero-title">rusouqirie</h1>
+    <p class="hero-sub">
+      Merealisasikan impian perkahwinan eksklusif dengan sentuhan elegan,
+      dekorasi premium dan pengalaman majlis yang tidak dapat dilupakan.
+    </p>
+    <div class="hero-btns">
+      <a href="tel:01176099076" class="btn-primary">Hubungi Sekarang</a>
+      <a href="#services" class="btn-outline">Lihat Servis</a>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div>
+      <img
+        src="images/wedding4.jpg"
+        alt="Majlis Perkahwinan"
+        class="about-img reveal"
+      />
+    </div>
+    <div class="about-body">
+      <p class="section-eyebrow">Latar Belakang Syarikat</p>
+      <h2 class="section-title reveal">
+        Bermula Dengan Hobi,
+        <span> Kini Menjadi Impian</span>
+      </h2>
+      <p class="reveal">
+        rusouqirie bermula pada tahun 2023 sebagai seorang suri rumah
+        yang ingin mencuba hobi dalam tempahan gubahan hantaran dan bunga kahwin.
+      </p>
+      <p class="reveal">
+        Dari minat yang kecil, rusouqirie berkembang kepada penghasilan
+        aksesori pengantin seperti bunga penangah yang mengimbau kembali
+        nostalgia perkahwinan tradisional zaman dahulu.
+      </p>
+      <p class="reveal">
+        Kini rusouqirie selangkah lagi dalam industri perkahwinan dengan
+        menawarkan servis lengkap sebagai wedding planner profesional.
+      </p>
+      <p class="reveal">
+        Kami menyediakan dewan, khemah, katering dan pelbagai keperluan
+        majlis bagi memastikan hari bahagia anda berjalan dengan sempurna.
+      </p>
+      <p class="reveal">
+        Kami bersedia memberikan servis terbaik kepada bakal pengantin
+        dengan pengalaman yang elegan dan eksklusif.
+      </p>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="inner">
+      <p class="section-eyebrow">Servis Kami</p>
+      <h2 class="section-title reveal">Pengurusan Perkahwinan Lengkap</h2>
+      <div class="services-grid">
+        <a href="dewan.html" class="service-card reveal" style="text-decoration:none; color:inherit;">
+          <img src="images/eco.jpg" alt="Dewan Perkahwinan" />
+          <div class="service-body">
+            <h3>Dewan Perkahwinan</h3>
+            <p>Dewan eksklusif dengan dekorasi moden dan suasana grand untuk majlis impian.</p>
+          </div>
+        </a>
+        <a href="khemah.html" class="service-card reveal" style="text-decoration:none; color:inherit;">
+          <img src="images/khemah4.jpeg" alt="Khemah Arabik" />
+          <div class="service-body">
+            <h3>Khemah Arabik</h3>
+            <p>Khemah premium berkonsepkan Arabik dengan pencahayaan elegan dan susun atur mewah.</p>
+          </div>
+        </a>
+        <a href="katering.html" class="service-card reveal" style="text-decoration:none; color:inherit;">
+          <img src="images/wedding5.jpg" alt="Katering Premium" />
+          <div class="service-body">
+            <h3>Katering Premium</h3>
+            <p>Menu katering berkualiti tinggi untuk tetamu dengan persembahan makanan profesional.</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY SLIDER -->
+  <section id="gallery-section">
+    <div class="gal-header">
+      <p class="section-eyebrow">Suasana Majlis</p>
+      <h2 class="section-title reveal">Galeri Perkahwinan Eksklusif</h2>
+    </div>
+    <div class="slider-track-wrap">
+      <div class="slider-track" id="sliderTrack">
+        <!-- JS will populate -->
+      </div>
+    </div>
+  </section>
+
+<!-- CTA -->
+  <section id="cta">
+    <div class="inner">
+      <p class="section-eyebrow">Tempah Sekarang</p>
+      <h2 class="section-title reveal">
+        Jadikan Hari Bahagia Anda
+        <span style="color:var(--pink)"> Lebih Sempurna</span>
+      </h2>
+      <p class="reveal">
+        Hubungi rusouqirie hari ini untuk konsultasi wedding planner,
+        dekorasi, katering dan pakej perkahwinan eksklusif.
+      </p>
+      <div class="cta-actions reveal">
+        <a href="tel:01176099076" class="btn-primary">011-7609 9076</a>
+        <p class="cta-tags">Wedding Planner • Dewan • Khemah • Katering • Bunga • Dekorasi</p>
+      </div>
+
+      <button onclick="toggleBooking()" id="bookingToggleBtn"
+        style="position:relative; z-index:3; display:flex; align-items:center; gap:10px; background:white; color:#0a0a0a; border:none; padding:14px 28px; border-radius:9999px; font-family:'Jost',sans-serif; font-size:1rem; font-weight:600; cursor:pointer; transition:all 0.25s; margin: 2rem auto 0;">
+        <span id="bookingBtnText">📋 Isi Borang Tempahan</span>
+        <span id="bookingBtnArrow" style="display:inline-block; transition:transform 0.35s;">▼</span>
+      </button>
+
+    </div>
+  </section>
+
+  <!-- BOOKING FORM -->
+  <section id="booking" style="background: #fff7f9; padding: 0 1.5rem; max-height: 0; overflow: hidden; transition: max-height 0.6s ease, padding 0.4s ease;">
+    <div style="max-width: 700px; margin: 0 auto;">
+
+      <div style="text-align: center; margin-bottom: 3rem;">
+        <p style="text-transform: uppercase; letter-spacing: .35rem; color: #ec4899; font-size: .75rem; font-weight: 600; margin-bottom: 0.75rem;">Tempahan</p>
+        <h2 style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; line-height: 1.15; margin-bottom: 1rem;">
+          Hubungi Kami Sekarang
+        </h2>
+        <p style="color: #6b7280; font-size: 1rem; line-height: 1.7;">
+          Isi borang di bawah dan kami akan menghubungi anda dalam masa 24 jam.
+        </p>
+        <div style="width: 50px; height: 2px; background: #ec4899; margin: 1.25rem auto 0; border-radius: 99px;"></div>
+      </div>
+
+      <form
+        action="https://formsubmit.co/rusouqirie@gmail.com"
+        method="POST"
+        id="bookingForm"
+        style="display: flex; flex-direction: column; gap: 1.25rem;"
+      >
+        <!-- FormSubmit hidden config -->
+        <input type="hidden" name="_subject" value="Pertanyaan Baru — rusouqirie Wedding Planner">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_autoresponse" value="Terima kasih kerana menghubungi rusouqirie! Kami telah menerima pertanyaan anda dan akan menghubungi anda dalam masa 24 jam. — Team rusouqirie">
+        <input type="hidden" name="_next" value="https://yourdomain.com/thankyou.html">
+        <input type="text" name="_honey" style="display:none">
+
+        <!-- Row: Name + Phone -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div>
+            <label style="display:block; font-size:0.85rem; font-weight:600; color:#374151; margin-bottom:6px;">
+              Nama Penuh <span style="color:#ec4899">*</span>
+            </label>
+            <input
+              type="text" name="Nama Penuh" required
+              placeholder="Cth: Nur Aisyah binti Ahmad"
+              style="width:100%; padding:12px 14px; border:1.5px solid #e5e7eb; border-radius:10px; font-family:'Jost',sans-serif; font-size:0.92rem; outline:none; transition:border-color 0.2s; background:#fff;"
+              onfocus="this.style.borderColor='#ec4899'" onblur="this.style.borderColor='#e5e7eb'"
+            >
+          </div>
+          <div>
+            <label style="display:block; font-size:0.85rem; font-weight:600; color:#374151; margin-bottom:6px;">
+              No. Telefon <span style="color:#ec4899">*</span>
+            </label>
+            <input
+              type="tel" name="No Telefon" required
+              placeholder="Cth: 011-1234 5678"
+              style="width:100%; padding:12px 14px; border:1.5px solid #e5e7eb; border-radius:10px; font-family:'Jost',sans-serif; font-size:0.92rem; outline:none; transition:border-color 0.2s; background:#fff;"
+              onfocus="this.style.borderColor='#ec4899'" onblur="this.style.borderColor='#e5e7eb'"
+            >
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div>
+          <label style="display:block; font-size:0.85rem; font-weight:600; color:#374151; margin-bottom:6px;">
+            Alamat E-mel <span style="color:#ec4899">*</span>
+          </label>
+          <input
+            type="email" name="E-mel" required
+            placeholder="Cth: aisyah@gmail.com"
+            style="width:100%; padding:12px 14px; border:1.5px solid #e5e7eb; border-radius:10px; font-family:'Jost',sans-serif; font-size:0.92rem; outline:none; transition:border-color 0.2s; background:#fff;"
+            onfocus="this.style.borderColor='#ec4899'" onblur="this.style.borderColor='#e5e7eb'"
+          >
+        </div>
+
+        <!-- Row: Event Date + Servis -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div>
+            <label style="display:block; font-size:0.85rem; font-weight:600; color:#374151; margin-bottom:6px;">
+              Tarikh Majlis <span style="color:#ec4899">*</span>
+            </label>
+            <input
+              type="date" name="Tarikh Majlis" required
+              style="width:100%; padding:12px 14px; border:1.5px solid #e5e7eb; border-radius:10px; font-family:'Jost',sans-serif; font-size:0.92rem; outline:none; transition:border-color 0.2s; background:#fff; color:#374151;"
+              onfocus="this.style.borderColor='#ec4899'" onblur="this.style.borderColor='#e5e7eb'"
+            >
+          </div>
+          <div>
+            <label style="display:block; font-size:0.85rem; font-weight:600; color:#374151; margin-bottom:6px;">
+              Jenis Servis
+            </label>
+            <select
+              name="Jenis Servis"
+              style="width:100%; padding:12px 14px; border:1.5px solid #e5e7eb; border-radius:10px; font-family:'Jost',sans-serif; font-size:0.92rem; outline:none; transition:border-color 0.2s; background:#fff; color:#374151; appearance:none; cursor:pointer;"
+              onfocus="this.style.borderColor='#ec4899'" onblur="this.style.borderColor='#e5e7eb'"
+            >
+              <option value="">-- Pilih Servis --</option>
+              <option>Dewan Perkahwinan</option>
+              <option>Khemah Arabik</option>
+              <option>Katering Sahaja</option>
+              <option>Pakej Lengkap</option>
+              <option>Lain-lain</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Bilangan Tetamu -->
+        <div>
+          <label style="display:block; font-size:0.85rem; font-weight:600; color:#374151; margin-bottom:6px;">
+            Anggaran Bilangan Tetamu
+          </label>
+          <select
+            name="Bilangan Tetamu"
+            style="width:100%; padding:12px 14px; border:1.5px solid #e5e7eb; border-radius:10px; font-family:'Jost',sans-serif; font-size:0.92rem; outline:none; transition:border-color 0.2s; background:#fff; color:#374151; appearance:none; cursor:pointer;"
+            onfocus="this.style.borderColor='#ec4899'" onblur="this.style.borderColor='#e5e7eb'"
+          >
+            <option value="">-- Pilih anggaran --</option>
+            <option>Kurang dari 300 pax</option>
+            <option>300 – 500 pax</option>
+            <option>500 – 700 pax</option>
+            <option>700 – 1000 pax</option>
+            <option>Lebih 1000 pax</option>
+          </select>
+        </div>
+
+        <!-- Message -->
+        <div>
+          <label style="display:block; font-size:0.85rem; font-weight:600; color:#374151; margin-bottom:6px;">
+            Mesej / Pertanyaan
+          </label>
+          <textarea
+            name="Mesej" rows="4"
+            placeholder="Ceritakan tentang majlis anda, tarikh, tempat pilihan atau sebarang soalan..."
+            style="width:100%; padding:12px 14px; border:1.5px solid #e5e7eb; border-radius:10px; font-family:'Jost',sans-serif; font-size:0.92rem; outline:none; transition:border-color 0.2s; background:#fff; resize:vertical; line-height:1.6;"
+            onfocus="this.style.borderColor='#ec4899'" onblur="this.style.borderColor='#e5e7eb'"
+          ></textarea>
+        </div>
+
+        <!-- Submit -->
+        <button
+          type="submit"
+          style="width:100%; padding:15px; background:#ec4899; color:white; border:none; border-radius:10px; font-family:'Jost',sans-serif; font-size:1rem; font-weight:600; cursor:pointer; transition:background 0.25s, transform 0.2s; margin-top:0.5rem; letter-spacing:0.03em;"
+          onmouseover="this.style.background='#db2777'; this.style.transform='translateY(-2px)'"
+          onmouseout="this.style.background='#ec4899'; this.style.transform='translateY(0)'"
+        >
+          Hantar Pertanyaan →
+        </button>
+
+        <p style="text-align:center; font-size:0.8rem; color:#9ca3af; margin-top:0.25rem;">
+          🔒 Maklumat anda selamat dan tidak akan dikongsi kepada mana-mana pihak.
+        </p>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <h3>rusouqirie</h3>
+    <p>
+      Wedding planner profesional dengan sentuhan eksklusif dan elegan untuk
+      menjadikan hari bahagia anda lebih bermakna.
+    </p>
+    <p class="contact">Hubungi: 011-7609 9076</p>
+    <p class="copyright">© 2026 rusouqirie Wedding Planner. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+        // ── Gallery data ──
+    const gallery = [
+      {
+        title: "Majlis Persandingan Grand",
+        image: "images/wedding7.jpg",
+      },
+      {
+        title: "Suasana Majlis Dalam Dewan",
+        image: "images/wedding8.jpeg",
+      },
+      {
+        title: "Kompang dan Gamilan",
+        image: "images/kompang2.jpeg",
+      },
+      {
+        title: "Khemah Arabik Eksklusif",
+        image: "images/khemah Q2.jpeg",
+      },
+      {
+        title: "Katering Premium Wedding",
+        image: "images/katering1.jpeg",
+      },
+    ];
+
+    // Duplicate for seamless loop
+    const track = document.getElementById('sliderTrack');
+    [...gallery, ...gallery].forEach(item => {
+      track.innerHTML += `
+        <div class="gal-card">
+          <img src="${item.image}" alt="${item.title}" loading="lazy" />
+          <div class="gal-card-overlay"></div>
+          <div class="gal-card-text">
+            <h3>${item.title}</h3>
+            <p>Suasana eksklusif dengan dekorasi premium untuk hari bahagia yang lebih elegan dan memukau.</p>
+          </div>
+        </div>
+      `;
+    });
+
+    // ── Scroll reveal ──
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // ── Smooth anchor scrolling ──
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+
+    // ── Booking form toggle ──
+  function toggleBooking() {
+    const section = document.getElementById('booking');
+    const btn     = document.getElementById('bookingToggleBtn');
+    const arrow   = document.getElementById('bookingBtnArrow');
+    const text    = document.getElementById('bookingBtnText');
+    const isOpen  = section.style.maxHeight !== '0px' && section.style.maxHeight !== '';
+
+    if (isOpen) {
+      section.style.maxHeight = '0';
+      section.style.padding   = '0 1.5rem';
+      arrow.style.transform   = 'rotate(0deg)';
+      text.textContent        = '📋 Isi Borang Tempahan';
+      btn.style.background    = 'white';
+      btn.style.color         = '#0a0a0a';
+    } else {
+      section.style.maxHeight = '1200px';
+      section.style.padding   = '5rem 1.5rem';
+      arrow.style.transform   = 'rotate(180deg)';
+      text.textContent        = '✕ Tutup Borang';
+      btn.style.background    = '#ec4899';
+      btn.style.color         = 'white';
+      // Smooth scroll to form
+      setTimeout(() => section.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+    }
+  }
+  </script>
+</body>
+</html>
