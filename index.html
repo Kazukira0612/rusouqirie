@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -307,8 +308,107 @@
       .hero-btns { flex-direction: column; align-items: center; }
       .cta-actions { flex-direction: column; }
     }
+
+/* ── TRANSLATE BUTTON ── */
+    #translate-wrapper {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 9999;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(236, 72, 153, 0.15); /* Subtle pink border */
+      padding: 10px 16px;
+      border-radius: 50px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    #translate-wrapper:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(236, 72, 153, 0.15); /* Pink glowing shadow */
+      border-color: rgba(236, 72, 153, 0.4);
+    }
+
+    /* Styling our custom globe icon */
+    #translate-wrapper i {
+      color: var(--pink-dark);
+      font-size: 1.05rem;
+      pointer-events: none; /* Let clicks pass through directly to Google's link */
+    }
+
+    /* Styling our custom elegant dropdown arrow */
+    #translate-wrapper::after {
+      content: '\f0d7'; /* FontAwesome angle-down */
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      font-size: 0.85rem;
+      color: var(--gray-600);
+      pointer-events: none; /* Let clicks pass through directly to Google's link */
+    }
+
+    /* ── GOOGLE TRANSLATE CRITICAL FIXES ── */
+    
+    /* 1. STRETCH Google's hidden link to cover the ENTIRE pill container */
+    .goog-te-menu-value {
+      position: absolute !important;
+      inset: 0 !important;
+      z-index: 5 !important;
+      cursor: pointer !important;
+    }
+
+    /* 2. Hide the native text ("Select Language") and default arrow inside Google's link */
+    .goog-te-menu-value span,
+    .goog-te-menu-value img {
+      display: none !important;
+    }
+
+    /* 3. Hide the default Google "G" icon wrapper */
+    .goog-te-gadget-icon {
+      display: none !important;
+    }
+
+    /* 4. Reset Google's layout container box so it doesn't break our positioning */
+    .goog-te-gadget-simple {
+      background: transparent !important;
+      border: none !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      line-height: normal !important;
+    }
+
+    #google_translate_element {
+      display: inline-flex;
+    }
+
+    .goog-te-gadget {
+      font-size: 0 !important;
+      color: transparent !important;
+    }
+
+    .goog-logo-link {
+      display: none !important;
+    }
+
+    /* Clean up top banner spacing */
+    body {
+      top: 0 !important;
+    }
+    .skiptranslate iframe {
+      display: none !important;
+    }
 </style>
 <body>
+  <!-- Google Translate Button -->
+  <div id="translate-wrapper">
+    <i class="fa-solid fa-globe"></i>
+    <div id="google_translate_element"></div>
+  </div>
 
   <!-- HERO -->
   <section id="hero">
@@ -372,22 +472,29 @@
         <a href="dewan.html" class="service-card reveal" style="text-decoration:none; color:inherit;">
           <img src="images/eco.jpg" alt="Dewan Perkahwinan" />
           <div class="service-body">
-            <h3>Dewan Perkahwinan</h3>
+            <h3>Pakej Dewan Perkahwinan</h3>
             <p>Dewan eksklusif dengan dekorasi moden dan suasana grand untuk majlis impian.</p>
           </div>
         </a>
         <a href="khemah.html" class="service-card reveal" style="text-decoration:none; color:inherit;">
           <img src="images/khemah4.jpeg" alt="Khemah Arabik" />
           <div class="service-body">
-            <h3>Khemah Arabik</h3>
+            <h3>Pakej Khemah Arabik</h3>
             <p>Khemah premium berkonsepkan Arabik dengan pencahayaan elegan dan susun atur mewah.</p>
           </div>
         </a>
         <a href="katering.html" class="service-card reveal" style="text-decoration:none; color:inherit;">
           <img src="images/wedding5.jpg" alt="Katering Premium" />
           <div class="service-body">
-            <h3>Katering Premium</h3>
+            <h3>Pakej Katering Premium</h3>
             <p>Menu katering berkualiti tinggi untuk tetamu dengan persembahan makanan profesional.</p>
+          </div>
+        </a>
+        <a href="bunga.html" class="service-card reveal" style="text-decoration:none; color:inherit;">
+          <img src="images/bunga1.jpeg" alt="Bunga Penanggah" />
+          <div class="service-body">
+            <h3>Pakej Bunga Penanggah</h3>
+            <p>Bunga penanggah premium dengan dekorasi yang elegan dan artistik untuk majlis perkahwinan anda.</p>
           </div>
         </a>
       </div>
@@ -525,7 +632,7 @@
               <option>Dewan Perkahwinan</option>
               <option>Khemah Arabik</option>
               <option>Katering Sahaja</option>
-              <option>Pakej Lengkap</option>
+              <option>Bunga Penanggah</option>
               <option>Lain-lain</option>
             </select>
           </div>
@@ -588,6 +695,26 @@
       menjadikan hari bahagia anda lebih bermakna.
     </p>
     <p class="contact">Hubungi: 011-7609 9076</p>
+    <p class="contact">Email: rusouqirie@gmail.com</p>
+    <p class="contact">
+  <a 
+    href="https://www.tiktok.com/@rusouqirie" 
+    target="_blank"
+    style="
+      color: var(--pink);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: transform 0.25s ease, color 0.25s ease;
+    "
+    onmouseover="this.style.transform='translateY(-2px)'; this.style.color='#f472b6';"
+    onmouseout="this.style.transform='translateY(0)'; this.style.color='var(--pink)';"
+  >
+    <i class="fa-brands fa-tiktok"></i>
+    @rusouqirie
+  </a>
+</p>
     <p class="copyright">© 2026 rusouqirie Wedding Planner. All Rights Reserved.</p>
   </footer>
 
@@ -613,6 +740,10 @@
       {
         title: "Katering Premium Wedding",
         image: "images/katering1.jpeg",
+      },
+      {
+        title: "Bunga Penangah Elegan",
+        image: "images/bunga1.jpeg",
       },
     ];
 
@@ -664,7 +795,7 @@
       section.style.maxHeight = '0';
       section.style.padding   = '0 1.5rem';
       arrow.style.transform   = 'rotate(0deg)';
-      text.textContent        = '📋 Isi Borang Tempahan';
+      text.textContent        = 'Isi Borang Tempahan';
       btn.style.background    = 'white';
       btn.style.color         = '#0a0a0a';
     } else {
@@ -678,6 +809,20 @@
       setTimeout(() => section.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
     }
   }
+
+  function googleTranslateElementInit() {
+  new google.translate.TranslateElement(
+    {
+      pageLanguage: 'ms',
+      includedLanguages: 'ms,en',
+      layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+    },
+    'google_translate_element'
+  );
+}
+
   </script>
+
+  <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>
